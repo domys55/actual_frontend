@@ -1,1 +1,23 @@
-<p>contacts-home works!</p>
+<button type="button" class="btn btn-primary">Add contact</button>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let element of contacts">
+          <td scope="row">{{ element.id }}</td>
+          <td scope="row">{{ element.firstName }}</td>
+          <td scope="row">{{ element.lastName }}</td>
+          <td scope="row">
+            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-warning">Edit</button>
+            <button type="button" class="btn btn-primary">Details</button>
+        </td>
+        </tr>
+        </tbody>
+  </table>
