@@ -1,0 +1,23 @@
+a{
+    margin: 0.1rem;
+}
+
+#newrecord-btn{
+    margin:0.1em;
+}
+
+table{
+    width: 100%;
+    display: table !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+table tr td,table tr th{
+    display: table-cell !important;
+    vertical-align: middle !important;
+    width:130px;
+}
+
+.container-fluid{
+    width: 90%;
+}
