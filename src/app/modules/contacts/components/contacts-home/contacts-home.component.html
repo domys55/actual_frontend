@@ -1,5 +1,6 @@
-<button type="button" class="btn btn-primary">Add contact</button>
-<table class="table">
+<a type="button" class="btn btn-primary" href="contact-form" id="newrecord-btn">Add contact</a>
+<div class="container-fluid">
+<table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -14,10 +15,11 @@
           <td scope="row">{{ element.firstName }}</td>
           <td scope="row">{{ element.lastName }}</td>
           <td scope="row">
-            <button type="button" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-warning">Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteContact(element.id)">Delete</button>
+            <a type="button" class="btn btn-warning" href="contact-form/{{element.id}}">Edit</a>
             <button type="button" class="btn btn-primary">Details</button>
         </td>
         </tr>
         </tbody>
   </table>
+</div>

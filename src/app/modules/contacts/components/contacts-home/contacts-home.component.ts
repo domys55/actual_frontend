@@ -36,4 +36,22 @@ export class ContactsHomeComponent {
       }
     });
   }
+
+  deleteContact(id: number): void {
+    this.contactService.deleteContact(id).subscribe({
+      next: (response: APIResponse<Contact>) => {
+        if (response.success) {
+          console.log('Contact deleted successfully:', response.data);
+          this.getContacts();
+          // Optionally refresh the contact list or remove the deleted item from the list
+        } else {
+          this.errorMessage = response.errorMessage;
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting contact:', error);
+        this.errorMessage = 'An error occurred while deleting the contact.';
+      }
+    });
+  }
 }

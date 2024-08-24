@@ -15,11 +15,12 @@ import { APIResponse } from "../../../shared/models/APIResponse.model";
       return this.http.get<APIResponse<Contact[]>>(this.apiUrl);
     }
   
-    getUserById(id: number): Observable<Contact> {
-      const url = `${this.apiUrl}/single?id=${id}`;
-      return this.http.get<Contact>(url);
+    getUserById(id: number): Observable<APIResponse<Contact>> {
+      const url = `${this.apiUrl}/${id}`;
+      return this.http.get<APIResponse<Contact>>(url);
   
     }
+
     
   
     savePerson(person: Contact): Observable<Contact> {
@@ -37,6 +38,11 @@ import { APIResponse } from "../../../shared/models/APIResponse.model";
       const url = `${this.apiUrl}?id=${id}`; // Replace with your actual API endpoint
   
       return this.http.delete(url);
+    }
+
+    deleteContact(id: number): Observable<APIResponse<Contact>> {
+      const url = `${this.apiUrl}/${id}`;
+      return this.http.delete<APIResponse<Contact>>(url);
     }
   
     ApiPersonPost(link: string): Observable<any> {
