@@ -1,0 +1,31 @@
+<div class="container mt-4" *ngIf="contact">
+    <h2>Contact Details</h2>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ contact!.firstName }} {{ contact!.lastName }}</h5>
+        <p class="card-text"><strong>Contact ID:</strong> {{ contact!.id }}</p>
+        <h6>Phone Numbers</h6>
+        <ul>
+          <li *ngFor="let phone of contact.phoneNumbers">
+            {{ phone.number }} <span *ngIf="phone.primary">(Primary)</span>
+          </li>
+        </ul>
+        <h6>Addresses</h6>
+        <ul>
+          <li *ngFor="let address of contact.addresses">
+            {{ address.street }}, {{ address.city }}, {{ address.state }}
+            <span *ngIf="address.primary">(Primary)</span>
+          </li>
+        </ul>
+       <!-- <a [routerLink]="['/contacts']" class="btn btn-primary mt-3">Back to Contacts List</a>-->
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+<div id="buttons">
+    <a type="button" class="btn btn-danger" href="contacts">Back</a>
+</div>

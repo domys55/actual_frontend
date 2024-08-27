@@ -15,7 +15,7 @@ import { APIResponse } from "../models/APIResponse.model";
       return this.http.get<APIResponse<ContactDTO[]>>(this.apiUrl);
     }
   
-    getUserById(id: number): Observable<APIResponse<ContactDTO>> {
+    getContactById(id: number): Observable<APIResponse<ContactDTO>> {
       const url = `${this.apiUrl}/${id}`;
       return this.http.get<APIResponse<ContactDTO>>(url);
   

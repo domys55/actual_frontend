@@ -1,6 +1,8 @@
 export interface AddressDTO {
     id: number;
-    address?:string;
-    town?:string;
+    street?:string;
+    city?:string;
     state?:string;
+    primary:boolean;
+    ContactId:number;
   }

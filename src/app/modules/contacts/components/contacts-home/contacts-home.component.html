@@ -15,9 +15,9 @@
         <td scope="row">{{ element.firstName }}</td>
         <td scope="row">{{ element.lastName }}</td>
         <td scope="row">
-          <button type="button" class="btn btn-danger" (click)="deleteContact(element.id)">Delete</button>
+          <a type="button" class="btn btn-danger" href="contact-delete/{{element.id}}">Delete</a>
           <a type="button" class="btn btn-warning" href="contact-form/{{element.id}}">Edit</a>
-          <button type="button" class="btn btn-primary">Details</button>
+          <a type="button" class="btn btn-primary" href="contact-details/{{element.id}}">Details</a>
         </td>
       </tr>
     </tbody>
@@ -44,4 +44,7 @@
     </nav>
   </div>
   <div class="rows_count">Showing 11 to 20 of 91 entries</div>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
 </div>

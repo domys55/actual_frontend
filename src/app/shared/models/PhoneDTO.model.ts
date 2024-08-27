@@ -1,5 +1,6 @@
 export interface PhoneDTO {
     id: number;
-    phoneNumber?:string;
+    number?:string;
     primary: boolean;
+    ContactId:number;
   }

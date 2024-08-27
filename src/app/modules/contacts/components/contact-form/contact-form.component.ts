@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common'
 export class ContactFormComponent implements OnInit {
 
   contactrouteId!: number;
-
+  errorMessage: string | null = null;
   form!: FormGroup;
   constructor(private contactService: ContactAggregateService, private fb: FormBuilder,
     private router: Router,private route: ActivatedRoute,) { }
@@ -46,6 +46,7 @@ export class ContactFormComponent implements OnInit {
 createPhoneGroup(first:Boolean): FormGroup {
   return this.fb.group({
     id: [0], // Assuming new phone starts with ID 0
+    contactId: [0],
     number: ['', Validators.required],
     primary: [first, Validators.required]
   });
@@ -86,18 +87,25 @@ createAddressGroup(first:Boolean): FormGroup {
   }
 
   getContact(id: number): void {
-    this.contactService.getUserById(id).subscribe({
-      next: (response: APIResponse<Contact>) => {
+    this.contactService.getContactById(id).subscribe({
+      next: (response: APIResponse<ContactDTO>) => {
         if (response.success) {
           //this.contact = response.data;
+          for (let i = 0; i < response.data.addresses.length-1; i++) {
+            this.addAddress(false);
+          }
+          for (let i = 0; i < response.data.phoneNumbers.length-1; i++) {
+            this.addPhoneNumber(false);
+          }
+
           this.form.patchValue(response.data);
         } else {
-          //this.errorMessage = response.errorMessage;
+          this.errorMessage = response.errorMessage;
         }
       },
       error: (error) => {
         console.error('Error fetching contact:', error);
-        //this.errorMessage = 'An error occurred while fetching the contact.';
+        this.errorMessage = 'An error occurred while fetching the contact.';
       }
     });
   }
