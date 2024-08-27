@@ -1,11 +1,25 @@
 <a type="button" class="btn btn-primary" href="contact-form" id="newrecord-btn">Add contact</a>
 <div class="container-fluid">
+  <div>
+    <input
+    type="text"
+    class="form-control mb-3"
+    placeholder="Search contacts..."
+    [(ngModel)]="searchTerm"
+  />
+  <div>
+      <button class="btn btn-primary" (click)="onSearch()">Search</button>
+      <button class="btn btn-danger" (click)="onClearSearch()">Clear</button>
+    </div>
+  </div>
   <table class="table table-striped" data-pagination="true" data-page-list="[10, 25, 50, 100, all]">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Number</th>
+        <th scope="col">Street</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -14,6 +28,8 @@
         <td scope="row">{{ element.id }}</td>
         <td scope="row">{{ element.firstName }}</td>
         <td scope="row">{{ element.lastName }}</td>
+        <td scope="row">{{ element.number }}</td>
+        <td scope="row">{{ element.street }}</td>
         <td scope="row">
           <a type="button" class="btn btn-danger" href="contact-delete/{{element.id}}">Delete</a>
           <a type="button" class="btn btn-warning" href="contact-form/{{element.id}}">Edit</a>
@@ -43,7 +59,6 @@
       </ul>
     </nav>
   </div>
-  <div class="rows_count">Showing 11 to 20 of 91 entries</div>
 </div>
 <div *ngIf="errorMessage" class="alert alert-danger">
   {{ errorMessage }}

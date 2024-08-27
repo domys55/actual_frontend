@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Contact } from "../models/contact.model";
 import { APIResponse } from "../../../shared/models/APIResponse.model";
 import { TablePagingDTO } from "../../../shared/models/TablePaging.model";
+import { ContactTableDTO } from "../models/ContactTableDTO.model";
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,11 @@ import { TablePagingDTO } from "../../../shared/models/TablePaging.model";
 
     ContactPaged(tablePaging: TablePagingDTO): Observable<APIResponse<Contact[]>> {
       return this.http.post<APIResponse<Contact[]>>(`${this.apiUrl}/getpage`, tablePaging);
+
+    }
+
+    ContactPagedTable(tablePaging: TablePagingDTO): Observable<APIResponse<ContactTableDTO[]>> {
+      return this.http.post<APIResponse<ContactTableDTO[]>>(`${this.apiUrl}/getpageTable`, tablePaging);
 
     }
   
