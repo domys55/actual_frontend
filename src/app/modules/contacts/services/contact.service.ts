@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Contact } from "../models/contact.model";
 import { APIResponse } from "../../../shared/models/APIResponse.model";
+import { TablePagingDTO } from "../../../shared/models/TablePaging.model";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,10 @@ import { APIResponse } from "../../../shared/models/APIResponse.model";
   
     }
 
-    
+    ContactPaged(tablePaging: TablePagingDTO): Observable<APIResponse<Contact[]>> {
+      return this.http.post<APIResponse<Contact[]>>(`${this.apiUrl}/getpage`, tablePaging);
+
+    }
   
     savePerson(person: Contact): Observable<Contact> {
       if (person.id) {

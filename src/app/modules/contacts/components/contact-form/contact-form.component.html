@@ -1,15 +1,61 @@
-
-<form [formGroup]="form" (ngSubmit)="savePerson(form)" class="w-25" style="margin: 2rem;">
+<form [formGroup]="form" (ngSubmit)="savePerson(form)" style="margin: 2rem;">
     <div class="form-group" class="mb-4">
         <label for="firstName">First name</label>
-        <input type="text" class="form-control" id="firstName" formControlName="firstName">
+        <input type="text" class="form-control sized" id="firstName" formControlName="firstName">
     </div>
     <div class="form-group">
         <label for="lastName">Last name</label>
-        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+        <input type="text" class="form-control sized" id="lastName" formControlName="lastName">
+    </div>
+
+    <div class="form-group">
+        <div formArrayName="phoneNumbers">
+            <h3>Phone Numbers</h3>
+            <div *ngFor="let phone of phoneNumbers.controls; let i = index" [formGroupName]="i">
+                <label for="number-{{i}}">Number:</label>
+                <input class="form-control sized" id="number-{{i}}" formControlName="number" />
+                <label for="primary-{{i}}">Primary:</label>
+
+                <input type="checkbox" class="form-check-input" id="exampleCheck2" formControlName="primary"
+                    (change)="onIsPrimaryContactChecked(i,'')">
+
+                <button type="button" [hidden]="i===0" class="btn btn-sm btn-danger" (click)="removePhoneNumber(i)">Remove Phone</button>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addPhoneNumber(false)">Add Phone</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div formArrayName="addresses">
+            <h3>Addresses</h3>
+            <div *ngFor="let address of addresses.controls; let i = index" [formGroupName]="i">
+                <div class="row">
+                    <div class="col">
+                        <label for="street-{{i}}">Street:</label>
+                        <input class="form-control " id="street-{{i}}" formControlName="street" />
+                    </div>
+                    <div class="col">
+                        <label for="city-{{i}}">City:</label>
+                        <input class="form-control " id="city-{{i}}" formControlName="city" />
+                    </div>
+                    <div class="col">
+                        <label for="state-{{i}}">State:</label>
+                        <input class="form-control " id="state-{{i}}" formControlName="state" />
+                    </div>
+
+                </div>
+                <label for="primary-{{i}}">Primary:</label>
+                <input type="checkbox" [checked]="i === 0" id="primary-{{i}}" formControlName="primary" (change)="onIsPrimaryContactChecked(i,'addr')" />
+                <button type="button" [hidden]="i===0" class="btn btn-sm btn-danger" (click)="removeAddress(i)">Remove Address</button>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addAddress(false)">Add Address</button>
+        </div>
     </div>
     <div id="buttons">
         <button type="button" class="btn btn-success" type="submit">Save</button>
         <a type="button" class="btn btn-danger" href="contacts">Back</a>
     </div>
 </form>
+<div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>

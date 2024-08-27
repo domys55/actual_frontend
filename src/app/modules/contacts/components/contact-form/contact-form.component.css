@@ -5,3 +5,7 @@
 a{
     margin-left: 0.5em;
 }
+
+.sized{
+    width: 25%;
+}
