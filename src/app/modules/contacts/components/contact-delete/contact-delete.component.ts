@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ContactDTO } from '../../../../shared/models/ContactDTO.model';
 import { ContactAggregateService } from '../../../../shared/services/contactAggregate.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { APIResponse } from '../../../../shared/models/APIResponse.model';
 import { CommonModule } from '@angular/common';  
 
@@ -17,7 +17,7 @@ export class ContactDeleteComponent {
     contactId: number | null = null;
     errorMessage: string | null = null;
   
-    constructor(private contactService: ContactAggregateService,private route: ActivatedRoute) { }
+    constructor(private contactService: ContactAggregateService,private route: ActivatedRoute,private router: Router) { }
   
     ngOnInit(): void {
       this.route.params.subscribe((params) => {
@@ -51,6 +51,7 @@ export class ContactDeleteComponent {
         next: (response: APIResponse<ContactDTO>) => {
           if (response.success) {
             console.log('Contact deleted successfully:', response.data);
+            this.router.navigate(['/contacts'])
             //this.getContacts();
             // Optionally refresh the contact list or remove the deleted item from the list
           } else {
