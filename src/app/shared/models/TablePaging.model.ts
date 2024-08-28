@@ -1,6 +1,7 @@
 import { ContactDTO } from "./ContactDTO.model";
 
 export interface TablePagingDTO {
+    search:string;
     page: number;
     recordNo:number;
     recordCount:number;
@@ -8,12 +9,14 @@ export interface TablePagingDTO {
   }
 
   export class TablePaging implements TablePagingDTO {
+    search:string;
     page: number;
     recordNo: number;
     recordCount: number;
     records: ContactDTO[];
   
-    constructor(page: number = 1, recordNo: number = 0, recordCount: number = 0, records: ContactDTO[] = []) {
+    constructor(search="",page: number = 1, recordNo: number = 0, recordCount: number = 0, records: ContactDTO[] = []) {
+      this.search=search;
       this.page = page;
       this.recordNo = recordNo;
       this.recordCount = recordCount;
@@ -23,6 +26,10 @@ export interface TablePagingDTO {
     // Method to update the page number
     setPage(newPage: number): void {
       this.page = newPage;
+    }
+
+    setSearch(searchterm: string): void {
+      this.search = searchterm;
     }
   
     // Method to update the records

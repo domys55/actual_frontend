@@ -5,19 +5,22 @@ import { NgFor } from '@angular/common';
 import { APIResponse } from '../../../../shared/models/APIResponse.model';
 import {TablePaging, TablePagingDTO } from '../../../../shared/models/TablePaging.model';
 import { CommonModule } from '@angular/common';  
+import { ContactTableDTO } from '../../models/ContactTableDTO.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-contacts-home',
   standalone: true,
-  imports: [NgFor,CommonModule],
+  imports: [NgFor,CommonModule,FormsModule],
   templateUrl: './contacts-home.component.html',
   styleUrl: './contacts-home.component.css'
 })
 export class ContactsHomeComponent {
-  contacts: Contact[] = [];
+  contacts: ContactTableDTO[] = [];
   errorMessage?: string | null;
   tablePaging = new TablePaging();
   totalItems:number=0;
+  searchTerm: string = '';
 
   currentPage = 1;
   pageSize = 5; // Adjust page size as needed
@@ -33,9 +36,24 @@ export class ContactsHomeComponent {
     this.getContacts(this.tablePaging);
   }
 
+  onSearch(){
+    this.tablePaging.page=this.currentPage;
+    this.tablePaging.recordNo=this.pageSize;
+    this.tablePaging.search=this.searchTerm;
+    this.getContacts(this.tablePaging);
+  }
+
+  onClearSearch(){
+    this.tablePaging.page=this.currentPage;
+  this.tablePaging.recordNo=this.pageSize;
+  this.searchTerm='';
+  this.tablePaging.search=this.searchTerm;
+    this.getContacts(this.tablePaging);
+  }
+
   getContacts(model:TablePagingDTO): void {
-    this.contactService.ContactPaged(model).subscribe({
-      next: (response: APIResponse<Contact[]>) => {
+    this.contactService.ContactPagedTable(model).subscribe({
+      next: (response: APIResponse<ContactTableDTO[]>) => {
         if (response.success) {
           this.contacts = response.data;
           this.calculateTotalPages(response.recordCount);

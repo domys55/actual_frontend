@@ -79,8 +79,10 @@ createAddressGroup(first:Boolean): FormGroup {
       this.contactService.savePerson(contact).subscribe(savedPerson => {
         console.log('Person saved:', savedPerson);
         // Do additional actions if needed
-        if (savedPerson != null) {
+        if (savedPerson.success ===true ) {
           this.router.navigate(['/contacts'])
+        }else{
+          this.errorMessage="Problem:"+savedPerson.errorMessage;
         }
       });
     }
